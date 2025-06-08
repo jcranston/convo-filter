@@ -1,3 +1,4 @@
+# This is a test comment to see if edits are applied.
 name: CI
 
 on:
@@ -35,12 +36,18 @@ jobs:
         path: .venv
         key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
-    - name: Install dependencies
-      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: poetry install --no-interaction --no-root
+    - name: Install dependencies and project
+      run: poetry install --no-interaction --sync
 
-    - name: Install project
-      run: poetry install --no-interaction
+    - name: Install project in editable mode
+      run: poetry run pip install -e .
+
+    - name: Debug Python Path and Directory
+      run: |
+        echo "--- sys.path ---"
+        poetry run python -c "import sys; print(sys.path)"
+        echo "--- convo_filter directory ---"
+        ls -R convo_filter
 
     - name: Run pre-commit hooks
       run: |
@@ -48,7 +55,7 @@ jobs:
         poetry run pre-commit run --all-files
 
     - name: Run tests
-      run: poetry run pytest
+      run: poetry run pytest --pyargs convo_filter
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
