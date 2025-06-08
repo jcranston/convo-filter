@@ -313,7 +313,7 @@ class ConversationFilter:
             System prompt string
         """
         topics_str = ", ".join(self.config.topics)
-        return f"""You are a helpful assistant that analyzes text for specific 
+        return f"""You are a helpful assistant that analyzes text for specific
 topics. For each page of text provided, identify if it contains content related
 to any of these topics: {topics_str}. Return a JSON object where each key is a
 topic and the value is a list of matches.
@@ -321,7 +321,7 @@ Each match should have:
 - page_num: The page number
 - text: The relevant text excerpt
 - confidence: A float between 0 and 1 indicating confidence in the match
-- is_consecutive: A boolean indicating if this page is consecutive with the 
+- is_consecutive: A boolean indicating if this page is consecutive with the
 previous match
 
 Example response format:
