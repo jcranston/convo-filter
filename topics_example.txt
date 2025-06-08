@@ -1,0 +1,19 @@
+# EXAMPLE TOPICS FILE
+# This is a template for creating your own topics file.
+# To use it, copy this file to "my_topics.txt" and customize the topics.
+# One topic per line. Empty lines and lines starting with # are ignored.
+# You can use this file by running:
+# python convo_filter.py conversation.pdf.zip --topics-file my_topics.txt
+
+# Example neutral topics
+meeting notes
+project updates
+action items
+
+# Work-related topics
+work
+career change
+
+# Health topics
+health concerns
+medical issues 

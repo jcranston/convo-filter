@@ -1,0 +1,64 @@
+# Python bytecode files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# macOS Finder files
+.DS_Store
+
+# Local configuration files with sensitive data
+config.py
+.env
+.env.*
+
+# Output files and sensitive data
+*.txt.zip
+*.txt
+*.pdf.zip
+*.pdf
+*.zip
+!topics_example.txt
+
+# Test coverage
+.coverage
+coverage.xml
+htmlcov/
+
+# Cache directories
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+
+# Logs
+*.log
+!input_convo.pdf.zip
+
+# Temporary files and directories
+/tmp/
+/temp/
+*.tmp
+
+# Output directories
+/output/
+/filtered_results/ 
