@@ -26,7 +26,7 @@ def read_topics_from_file(file_path: str) -> list[str]:
     Returns:
         List of topics
     """
-    topics = []
+    topics: list[str] = []
     with open(file_path) as f:
         for file_line in f:
             line = file_line.strip()
@@ -38,7 +38,7 @@ def read_topics_from_file(file_path: str) -> list[str]:
 class MutuallyExclusiveCommand(click.Command):
     def parse_args(self, ctx: click.Context, args: list[str]) -> list[str]:
         # First parse the args normally
-        result = super().parse_args(ctx, args)
+        result: list[str] = super().parse_args(ctx, args)
 
         # Then check for mutual exclusivity
         if ctx.params.get("topics_file") and ctx.params.get("topics"):
@@ -129,16 +129,19 @@ def filter(  # noqa: PLR0913
     if not topics_file and not topics:
         raise click.UsageError("Either --topics-file or --topics must be specified")
 
-    # Read topics from file if specified
+    # Ensure topics is always a list[str]
+    processed_topics: list[str]
     if topics_file:
         with open(topics_file) as f:
             file_topics = [line.strip() for line in f if line.strip()]
-        topics = tuple(file_topics)
+        processed_topics = file_topics
+    else:
+        processed_topics = list(topics)
 
     # Create configuration
     config = FilterConfig(
         api_key=os.environ["ANTHROPIC_API_KEY"],
-        topics=list(topics),
+        topics=processed_topics,
         pdf_path=pdf,
         model=model,
         batch_size=batch_size,
@@ -195,7 +198,7 @@ PAGES_PER_BATCH = 4  # Number of pages to process in one API call
 GROUP_CONSECUTIVE_PAGES = True  # Group consecutive pages discussing the same topic
 PRIVACY_MODE = True            # Hide sensitive information in output
 OUTPUT_PDF = True              # Output as PDF instead of text
-STRICTNESS = "high"            # How strict to be when matching topics: 
+STRICTNESS = "high"            # How strict to be when matching topics:
                                  "low", "medium", or "high"
 '''
     if config_path.exists():

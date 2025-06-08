@@ -31,4 +31,4 @@ coverage:
 	poetry run pytest --cov=convo_filter --cov-report=term-missing
 
 run:
-	poetry run convo-filter 
+	poetry run convo-filter

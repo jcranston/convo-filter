@@ -21,7 +21,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Filter conversations by multiple topics using Claude AI
 - Load topics from a text file (one topic per line)
 - Preserve conversation context when filtering
-- **Privacy-focused**: 
+- **Privacy-focused**:
   - Accepts compressed PDF input (.pdf.zip)
   - No temporary files with PDF content
   - No sensitive content printed to terminal
@@ -197,7 +197,7 @@ The tool includes several optimizations:
      - Context switching overhead
      - Memory usage
      - Recommended maximum: 4-8 workers for most systems
-3. **Built-in Rate Limiting**: 
+3. **Built-in Rate Limiting**:
    - Automatically enforces Anthropic's API rate limits
    - Uses thread-safe implementation with Python's `threading` module
    - Maintains a rolling window of API calls
@@ -292,4 +292,4 @@ SOFTWARE.
 
 ## Support
 
-For issues and feature requests, please use the GitHub issue tracker. 
+For issues and feature requests, please use the GitHub issue tracker.

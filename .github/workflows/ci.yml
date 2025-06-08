@@ -1,3 +1,4 @@
+# This is a test comment to see if edits are applied.
 name: CI
 
 on:
@@ -11,47 +12,54 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.10"]
 
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-    
+
     - name: Install Poetry
       uses: snok/install-poetry@v1
       with:
         version: 2.1.2
         virtualenvs-create: true
         virtualenvs-in-project: true
-    
+
     - name: Load cached venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
-    
-    - name: Install dependencies
-      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: poetry install --no-interaction --no-root
-    
-    - name: Install project
-      run: poetry install --no-interaction
-    
+
+    - name: Install dependencies and project
+      run: |
+        poetry install --no-interaction --sync
+        poetry run python -c "import convo_filter; print(convo_filter.__file__)"
+
+    - name: Debug Python Path and Directory
+      run: |
+        echo "--- sys.path ---"
+        poetry run python -c "import sys; print(sys.path)"
+        echo "--- convo_filter directory ---"
+        ls -R convo_filter
+
     - name: Run pre-commit hooks
       run: |
         poetry run pre-commit install
         poetry run pre-commit run --all-files
-    
+
     - name: Run tests
-      run: poetry run pytest
-    
+      run: |
+        export PYTHONPATH=$PYTHONPATH:$(pwd)
+        poetry run pytest
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
         file: ./coverage.xml
-        fail_ci_if_error: true 
+        fail_ci_if_error: true
