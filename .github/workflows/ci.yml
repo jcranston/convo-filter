@@ -37,10 +37,7 @@ jobs:
         key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Install dependencies and project
-      run: poetry install --no-interaction --sync
-
-    - name: Install project in editable mode
-      run: poetry run pip install -e .
+      run: poetry install --no-interaction --sync -e .
 
     - name: Debug Python Path and Directory
       run: |
@@ -55,7 +52,9 @@ jobs:
         poetry run pre-commit run --all-files
 
     - name: Run tests
-      run: poetry run pytest --pyargs convo_filter
+      run: |
+        export PYTHONPATH=$PYTHONPATH:$(pwd)
+        poetry run pytest
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
