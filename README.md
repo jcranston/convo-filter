@@ -1,6 +1,6 @@
 # Conversation Filter
 
-![CI](https://github.com/jamescranston/convo-filter/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/jcranston/convo-filter/actions/workflows/ci.yml/badge.svg)
 [![codecov](https://codecov.io/gh/jamescranston/convo-filter/branch/main/graph/badge.svg)](https://codecov.io/gh/jamescranston/convo-filter)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
